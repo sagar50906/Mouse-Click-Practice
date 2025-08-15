@@ -1,0 +1,167 @@
+:root{
+  --bg1:#0f1121;
+  --bg2:#141628;
+  --panel:#181a31;
+  --panel-2:#111326;
+  --text:#e8e9ff;
+  --muted:#a6a8c6;
+  --accent:#7c4dff;      /* purple */
+  --accent-2:#3aa0ff;    /* blue */
+  --danger:#ff2f4f;
+  --shadow:0 10px 30px rgba(0,0,0,.45);
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+  color:var(--text);
+  background: radial-gradient(1200px 800px at 10% -10%, #1c2050 0%, transparent 40%),
+              radial-gradient(1000px 700px at 110% 20%, #26205a 0%, transparent 42%),
+              linear-gradient(180deg, var(--bg1), var(--bg2));
+}
+
+/* topbar */
+.topbar{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:12px 20px; background:rgba(0,0,0,.35); border-bottom:1px solid #1f2140;
+  position:sticky; top:0; z-index:5; backdrop-filter: blur(6px);
+}
+.brand{display:flex; align-items:center; gap:10px; letter-spacing:.5px; font-weight:700}
+.logo{display:block}
+
+.wrap{display:flex; flex-direction:column; min-height:100%}
+.stage{
+  width:70%;
+  margin:28px auto 60px;
+}
+
+/* panels */
+.panel{
+  background:linear-gradient(180deg, var(--panel), var(--panel-2));
+  border:1px solid #23264d;
+  border-radius:18px; padding:20px;
+  box-shadow:var(--shadow);
+}
+.panel h2{margin:.2rem 0 1rem; letter-spacing:.6px}
+
+.settings .fields{
+  display:grid; grid-template-columns: repeat(3, 1fr);
+  gap:18px; margin-bottom:14px;
+}
+.field{display:flex; flex-direction:column; gap:6px; background:#111327; border:1px solid #23264d; padding:14px; border-radius:12px}
+.field span{color:#cfd2ff; font-weight:600}
+.field small{color:var(--muted)}
+
+.actions{display:flex; gap:12px; margin-top:8px}
+
+/* buttons */
+.btn{
+  border:none; border-radius:12px; padding:10px 14px; font-weight:700;
+  background:linear-gradient(135deg, var(--accent), var(--accent-2));
+  color:#0c1024; cursor:pointer; box-shadow:0 6px 18px rgba(58,160,255,.25);
+}
+.btn.primary{background:linear-gradient(135deg, var(--accent-2), var(--accent))}
+.btn.ghost{background:transparent; color:#cfd2ff; border:1px solid #2a2d56}
+.btn.danger{background:linear-gradient(135deg, #ff6b81, var(--danger)); color:#1a0d12}
+.btn.small{padding:6px 10px; border-radius:10px}
+.btn:hover{filter:brightness(1.06)} .btn:active{transform:translateY(1px)}
+
+/* game panel */
+.play{position:relative; overflow:hidden; padding:0}
+.game-area{
+  position:relative; height:540px; border-radius:16px; overflow:hidden;
+  cursor:none;  /* hide system cursor */
+}
+
+/* subtle grid background like your screenshot */
+.grid{
+  background:
+    linear-gradient(#1c1f3a 1px, transparent 1px) 0 0 / 160px 160px,
+    linear-gradient(90deg, #1c1f3a 1px, transparent 1px) 0 0 / 160px 160px,
+    linear-gradient(#151833 1px, transparent 1px) 0 0 / 40px 40px,
+    linear-gradient(90deg, #151833 1px, transparent 1px) 0 0 / 40px 40px,
+    #0f1121;
+}
+
+/* custom crosshair '+' that follows mouse */
+.cursor{
+  position:absolute; width:20px; height:20px; pointer-events:none; z-index:5;
+  color:#c8ccff; font-weight:900; text-align:center; line-height:20px;
+  mix-blend-mode:screen; opacity:.9; filter:drop-shadow(0 0 4px rgba(80,120,255,.5));
+  transform: translate(-50%, -50%);
+}
+
+/* HUD overlay */
+.hud{
+  position:absolute; top:12px; right:12px; display:flex; gap:10px; align-items:center; z-index:4;
+}
+.hud-box{
+  background:rgba(8,10,24,.6); border:1px solid #242759; padding:8px 12px;
+  border-radius:10px; font-size:.95rem; color:#dfe2ff; backdrop-filter: blur(4px);
+}
+
+/* bubbles */
+.bubble{
+  position:absolute; border-radius:50%;
+  background: radial-gradient(60% 60% at 35% 35%, rgba(255,255,255,.25), rgba(255,255,255,0) 60%),
+              radial-gradient(circle at 60% 60%, rgba(58,160,255,.45), rgba(124,77,255,.55));
+  box-shadow: 0 4px 16px rgba(58,160,255,.28);
+  animation: spawn .22s ease-out, float 2.2s ease-in-out infinite alternate;
+  will-change: transform, opacity;
+}
+.bubble:hover{filter:brightness(1.08)}
+@keyframes spawn{from{transform:scale(.4); opacity:.0} to{transform:scale(1); opacity:1}}
+@keyframes float{from{transform: translateY(-2px)} to{transform: translateY(2px)}}
+
+/* bubble click ripple + fade */
+.bubble.pop{
+  animation: pop .35s ease-out forwards;
+}
+@keyframes pop{
+  0%{transform:scale(1); opacity:1}
+  70%{transform:scale(1.25); opacity:.6; box-shadow:0 0 40px rgba(124,77,255,.4)}
+  100%{transform:scale(1.35); opacity:0}
+}
+
+.bubble {
+  transition: transform 0.25s ease-out, opacity 0.25s ease-out;
+}
+
+.bubble.fade-out {
+  opacity: 0;
+  transform: scale(0.6);
+}
+
+/* ripple ring */
+.ring{
+  position:absolute; border:2px solid rgba(90,140,255,.7); border-radius:50%;
+  transform: translate(-50%,-50%) scale(.4); opacity:.9; pointer-events:none; z-index:3;
+  animation: ring .45s ease-out forwards;
+}
+@keyframes ring{
+  to{transform: translate(-50%,-50%) scale(1.8); opacity:0}
+}
+
+/* countdown */
+.countdown{
+  position:absolute; inset:0; display:grid; place-items:center; background:rgba(5,6,18,.55);
+  backdrop-filter: blur(2px); z-index:6;
+}
+.count-inner{display:flex; flex-direction:column; align-items:center; gap:10px}
+.count-text{font-weight:900; letter-spacing:1px}
+#countNum{font-size:2rem}
+
+/* results */
+.results h2{margin-top:0}
+.cards{display:grid; grid-template-columns: repeat(3,1fr); gap:16px; margin:14px 0 8px}
+.card{
+  background:#0f122a; border:1px solid #22265a; border-radius:14px; padding:16px;
+  box-shadow:var(--shadow);
+}
+.card .label{color:#aab0e6; letter-spacing:.5px; font-weight:700; margin-bottom:6px}
+.card .value.big{font-size:2.2rem; font-weight:900}
+.card .note{color:#93a0e6; margin-top:6px; font-size:.95rem}
+
+.hide{display:none}

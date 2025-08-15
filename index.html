@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mouse Accuracy • Bubble Aim</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <div class="wrap">
+    <header class="topbar">
+      <div class="brand">
+        <!-- simple red logo (replace with your own if you like) -->
+        <svg width="26" height="22" viewBox="0 0 26 22" class="logo">
+          
+        </svg>
+        <span>Mouse Accuracy</span>
+      </div>
+      <button id="openSettings" class="btn ghost">Change Settings</button>
+    </header>
+
+    <!-- Main content (70% layout) -->
+    <main class="stage">
+      <section class="panel settings" id="settingsPanel">
+        <h2>Game Settings</h2>
+
+        <div class="fields">
+          <label class="field">
+            <span>Bubble Size</span>
+            <input type="range" id="bubbleSize" min="24" max="120" value="60"/>
+            <small id="sizeVal">60 px</small>
+          </label>
+
+          <label class="field">
+            <span>Duration</span>
+            <select id="duration">
+              <option value="30">30 seconds</option>
+              <option value="60" selected>60 seconds</option>
+              <option value="120">120 seconds</option>
+            </select>
+          </label>
+
+          <label class="field">
+            <span>Difficulty</span>
+            <select id="difficulty">
+              <option value="easy">Easy</option>
+              <option value="medium" selected>Medium</option>
+              <option value="hard">Hard</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="actions">
+          <button id="startBtn" class="btn primary">Start Game</button>
+        </div>
+      </section>
+
+      <section class="panel play hide" id="gamePanel">
+        <!-- subtle grid background sits behind this -->
+        <div class="game-area grid" id="gameArea" aria-label="Game area"></div>
+
+        <!-- custom + crosshair cursor (only inside game area) -->
+        <div id="cursor" class="cursor">+</div>
+
+        <!-- countdown overlay -->
+        <div id="countdown" class="countdown hide">
+          <div class="count-inner">
+            <svg width="40" height="34" viewBox="0 0 26 22" class="logo">
+             
+            </svg>
+            <div class="count-text">STARTING IN <span id="countNum">3</span>…</div>
+          </div>
+        </div>
+
+        <!-- HUD -->
+        <div class="hud">
+          <div class="hud-box">Time: <strong id="timeLeft">60</strong>s</div>
+          <div class="hud-box">Score: <strong id="score">0</strong></div>
+          <button id="endEarly" class="btn danger small">End Session</button>
+        </div>
+      </section>
+
+      <section class="panel results hide" id="resultsPanel">
+        <h2>Session Results</h2>
+        <div class="cards">
+          <div class="card">
+            <div class="label">TOTAL SCORE</div>
+            <div class="value big" id="rScore">0</div>
+            <div class="note" id="rBreakdown"></div>
+          </div>
+          <div class="card">
+            <div class="label">TARGETS</div>
+            <div class="value big" id="rTargets">0</div>
+            <div class="note" id="rTargetsNote"></div>
+          </div>
+          <div class="card">
+            <div class="label">CLICK ACCURACY</div>
+            <div class="value big" id="rAccuracy">0%</div>
+            <div class="note" id="rAccuracyNote"></div>
+          </div>
+        </div>
+        <div class="actions">
+          <button id="restart" class="btn primary">Restart</button>
+          <button id="backSettings" class="btn ghost">Change Settings</button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
